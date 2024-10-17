@@ -1,10 +1,9 @@
 name: Lint
 
 on:
-  pull_request:
-    branches:
-      - main
-
+  push:
+    paths:
+      - 'automation/**'
 jobs:
 
   pre-commit:
@@ -12,20 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-
-      - name: Cache pre-commit
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pre-commit
-          key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
-
-      - name: Install pre-commit
-        run: pip3 install pre-commit
-
-      - name: Run pre-commit
-        run: pre-commit run --all-files --show-diff-on-failure --color always
+    - name: Run linter
+      uses: github/super-linter/slim@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
