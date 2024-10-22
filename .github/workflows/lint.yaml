@@ -3,7 +3,7 @@ name: Lint
 on:
   push:
     paths:
-      - 'automation/**'
+      - 'automation/**/*.yml'
 jobs:
 
   pre-commit:
