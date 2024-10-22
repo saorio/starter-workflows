@@ -1,0 +1,17 @@
+name: Lint
+
+on:
+  push:
+    paths:
+      - 'ci/**/*.yml'
+jobs:
+
+  pre-commit:
+    name: pre-commit
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Run linter
+      uses: github/super-linter/slim@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
